@@ -1,15 +1,14 @@
-import { Ollama, OllamaEmbeddings } from "@langchain/ollama";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { RunnableSequence } from "@langchain/core/runnables";
 import { PromptTemplate } from "@langchain/core/prompts";
+import { RunnableSequence } from "@langchain/core/runnables";
+import { Ollama } from "@langchain/ollama";
 
 const model_name = "deepseek-r1:1.5b";
+const model = new Ollama({ model: model_name });
 
 export async function POST(request: Request) {
   const { topic } = await request.json();
   const template = PromptTemplate.fromTemplate("Tell me a joke on {topic}");
-  const model = new Ollama({ model: model_name });
-  const embeddings = new OllamaEmbeddings({ model: model_name });
   const parser = new StringOutputParser();
   const chain = RunnableSequence.from([template, model, parser]);
   const response: string = await chain.invoke({ topic });
