@@ -3,4 +3,4 @@ export const strip_think = (s: string) =>
 
 export const DEEP_SEEK_SMALL = "deepseek-r1:1.5b";
 export const DEEP_SEEK_7B = "deepseek-r1:7b";
-export const MISTRAL = "mistral:latest";
+export const MISTRAL = "mistral";
